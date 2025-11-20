@@ -4,25 +4,15 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import LetterGlitch from './LetterGlitch'
 
 export default function Hero() {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   
-  // Try to find the image with different possible filenames/extensions
+  // Set profile picture to pic 1.jpg
   useEffect(() => {
-    const possiblePaths = [
-      '/images/johnnylee-red-white-black.jpg',
-      '/images/johnnylee-red-white-black.png',
-      '/images/johnnylee-red-white-black.jpeg',
-      '/images/johnnylee%20red%20white%20and%20black', // URL encoded spaces
-      '/images/johnnylee red white and black', // Direct filename with spaces
-      '/images/johnnylee.jpg',
-      '/images/johnnylee.png',
-      '/images/red-white-black.jpg',
-      '/images/red-white-black.png',
-    ]
-    
-    // Test which image exists
+    // Use pic 1.jpg as the profile picture
+    const profilePicPath = '/images/pic 1.jpg'
     const testImage = (path: string): Promise<boolean> => {
       return new Promise((resolve) => {
         const img = new window.Image()
@@ -45,62 +35,39 @@ export default function Hero() {
       return path
     }
     
-    const findImage = async () => {
-      for (const path of possiblePaths) {
-        const exists = await testImage(path)
-        if (exists) {
-          // Use encoded path for display
-          setImageSrc(encodePath(path))
-          return
-        }
+    const checkImage = async () => {
+      const exists = await testImage(profilePicPath)
+      if (exists) {
+        setImageSrc(encodePath(profilePicPath))
+      } else {
+        setImageSrc(null)
       }
-      setImageSrc(null) // No image found
     }
     
-    findImage()
+    checkImage()
   }, [])
   return (
     <section 
       id="home" 
       className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-4 sm:px-6 relative overflow-hidden"
-      style={{
-        backgroundImage: `url(${encodeURI('/images/pic 1.jpg')})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
     >
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30 dark:bg-black/50 z-[1]"></div>
+      {/* Enhanced image with filters for dramatic effect */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${encodeURI('/images/pic 1.jpg')})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'contrast(1.1) brightness(0.9) saturate(1.2)',
+        }}
+      />
       
-      {/* Gradient Background Overlays */}
-      <div className="absolute inset-0 z-[2] dark:bg-gradient-to-br dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 bg-gradient-to-br from-blue-100/20 via-purple-100/20 to-pink-100/20"></div>
-      <div className="absolute inset-0 z-[2] dark:bg-gradient-to-tr dark:from-transparent dark:via-blue-500/5 dark:to-purple-500/5 bg-gradient-to-tr from-transparent via-blue-200/10 to-purple-200/10"></div>
-      <motion.div
-        className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.2),transparent_50%)]"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_70%_80%,rgba(219,39,119,0.2),transparent_50%)]"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      {/* Subtle dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20 dark:bg-black/30 z-[1]"></div>
+      
+      {/* Minimal gradient overlays to preserve image drama */}
+      <div className="absolute inset-0 z-[2] dark:bg-gradient-to-br dark:from-blue-900/5 dark:via-purple-900/5 dark:to-pink-900/5 bg-gradient-to-br from-blue-100/10 via-purple-100/10 to-pink-100/10"></div>
       
       <div className="max-w-4xl mx-auto text-center relative z-[10]">
         <motion.div
@@ -118,33 +85,32 @@ export default function Hero() {
             <motion.div
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ duration: 0.3 }}
-              className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-red-500/50 dark:border-red-400/60 shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50"
+              className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-red-500/70 dark:border-red-400/80 shadow-2xl ring-4 ring-white/30 dark:ring-gray-800/50"
+              style={{
+                boxShadow: '0 0 30px rgba(220, 38, 38, 0.5), 0 0 60px rgba(220, 38, 38, 0.3)',
+              }}
             >
               {imageSrc ? (
-                imageSrc.includes(' ') ? (
-                  // Use regular img tag for filenames with spaces
-                  <img
-                    src={imageSrc}
-                    alt="Johnny-Lee Treavajo"
-                    className="w-full h-full object-cover"
-                    style={{ objectFit: 'cover' }}
-                  />
-                ) : (
-                  <Image
-                    src={imageSrc}
-                    alt="Johnny-Lee Treavajo"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                )
+                <img
+                  src={imageSrc}
+                  alt="Johnny-Lee Treavajo"
+                  className="w-full h-full object-cover"
+                  style={{ 
+                    objectFit: 'cover',
+                    filter: 'contrast(1.15) brightness(0.95) saturate(1.1)',
+                    transform: 'scale(1.05)',
+                  }}
+                />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-red-500 via-white to-black flex items-center justify-center text-white text-4xl sm:text-5xl md:text-6xl font-bold">
                   JL
                 </div>
               )}
-              {/* Decorative ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-white/30 dark:border-gray-700/30"></div>
+              {/* Enhanced decorative rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-white/40 dark:border-gray-700/40"></div>
+              <div className="absolute inset-0 rounded-full border border-red-500/30 dark:border-red-400/30"></div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500/10 via-transparent to-blue-500/10"></div>
             </motion.div>
           </motion.div>
           
@@ -156,12 +122,20 @@ export default function Hero() {
           >
             Hi, I&apos;m{' '}
             <motion.span
-              className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent block sm:inline"
+              className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent block sm:inline relative"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Johnny-Lee Treavajo
+              <span className="relative z-10">Johnny-Lee Treavajo</span>
+              <div className="absolute inset-0 opacity-30 -z-0" style={{ width: '100%', height: '100%', minHeight: '80px' }}>
+                <LetterGlitch
+                  glitchSpeed={50}
+                  centerVignette={true}
+                  outerVignette={false}
+                  smooth={true}
+                />
+              </div>
             </motion.span>
           </motion.h1>
           <motion.p
