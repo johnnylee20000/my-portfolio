@@ -288,7 +288,7 @@ export default function Contact() {
                   className="p-3 sm:p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-center gap-2 text-sm sm:text-base text-green-400"
                 >
                   <CheckCircle size={18} className="sm:w-5 sm:h-5 flex-shrink-0" />
-                  <span>Message sent successfully! I'll get back to you soon.</span>
+                  <span>Message sent successfully! I&apos;ll get back to you soon.</span>
                 </motion.div>
               )}
               {submitStatus === 'error' && (

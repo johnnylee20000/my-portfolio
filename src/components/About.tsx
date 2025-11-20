@@ -47,7 +47,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.5 }}
               >
-                I'm a passionate full-stack developer with a love for creating
+                I&apos;m a passionate full-stack developer with a love for creating
                 innovative web solutions. With expertise in modern JavaScript
                 frameworks and cloud technologies, I bring ideas to life through
                 clean, efficient code.
@@ -59,7 +59,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                When I'm not coding, you can find me exploring new technologies,
+                When I&apos;m not coding, you can find me exploring new technologies,
                 contributing to open-source projects, or sharing knowledge with
                 the developer community.
               </motion.p>
