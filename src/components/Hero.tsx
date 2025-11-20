@@ -5,15 +5,15 @@ import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-4 sm:px-6 relative overflow-hidden">
-      {/* Tropical Gradient Background */}
-      <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-teal-900/30 dark:via-emerald-900/20 dark:to-cyan-900/30 bg-gradient-to-br from-teal-100/40 via-emerald-100/30 to-cyan-100/40"></div>
-      <div className="absolute inset-0 dark:bg-gradient-to-tr dark:from-transparent dark:via-teal-500/15 dark:to-emerald-500/15 bg-gradient-to-tr from-transparent via-teal-200/25 to-emerald-200/25"></div>
+    <section id="home" className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-4 sm:px-6 relative overflow-hidden dark:bg-gray-900 bg-white">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 bg-gradient-to-br from-blue-100/30 via-purple-100/30 to-pink-100/30"></div>
+      <div className="absolute inset-0 dark:bg-gradient-to-tr dark:from-transparent dark:via-blue-500/10 dark:to-purple-500/10 bg-gradient-to-tr from-transparent via-blue-200/20 to-purple-200/20"></div>
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.2),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.3),transparent_50%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)]"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.3, 0.5, 0.3],
         }}
         transition={{
           duration: 8,
@@ -22,25 +22,13 @@ export default function Hero() {
         }}
       />
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(34,197,94,0.2),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_80%,rgba(34,197,94,0.3),transparent_50%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(219,39,119,0.3),transparent_50%)]"
         animate={{
           scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.3, 0.5, 0.3],
         }}
         transition={{
           duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.15),transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.2),transparent_50%)]"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.15, 0.25, 0.15],
-        }}
-        transition={{
-          duration: 12,
           repeat: Infinity,
           ease: "easeInOut",
         }}
