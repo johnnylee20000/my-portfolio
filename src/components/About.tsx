@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -25,9 +26,28 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col items-center md:items-start"
           >
+            {/* About Image - Optional: Add your image to public/images/about.jpg */}
             <motion.div
-              className="dark:bg-gray-800 bg-white rounded-lg p-6 sm:p-8 shadow-xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-6 w-full max-w-sm"
+            >
+              <div className="relative w-full h-64 sm:h-80 rounded-lg overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/johnnylee-red-white-black.jpg"
+                  alt="About Johnny-Lee Treavajo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </motion.div>
+            
+            <motion.div
+              className="dark:bg-gray-800 bg-white rounded-lg p-6 sm:p-8 shadow-xl w-full"
               whileHover={{ scale: 1.02, y: -5 }}
               transition={{ duration: 0.3 }}
             >

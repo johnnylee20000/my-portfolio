@@ -2,18 +2,86 @@
 
 import { motion } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 export default function Hero() {
+  const [imageSrc, setImageSrc] = useState<string | null>(null)
+  
+  // Try to find the image with different possible filenames/extensions
+  useEffect(() => {
+    const possiblePaths = [
+      '/images/johnnylee-red-white-black.jpg',
+      '/images/johnnylee-red-white-black.png',
+      '/images/johnnylee-red-white-black.jpeg',
+      '/images/johnnylee%20red%20white%20and%20black', // URL encoded spaces
+      '/images/johnnylee red white and black', // Direct filename with spaces
+      '/images/johnnylee.jpg',
+      '/images/johnnylee.png',
+      '/images/red-white-black.jpg',
+      '/images/red-white-black.png',
+    ]
+    
+    // Test which image exists
+    const testImage = (path: string): Promise<boolean> => {
+      return new Promise((resolve) => {
+        const img = new window.Image()
+        img.onload = () => resolve(true)
+        img.onerror = () => resolve(false)
+        // Encode spaces in URL
+        const encodedPath = path.includes(' ') ? path.split('/').map(part => 
+          part.includes(' ') ? encodeURIComponent(part) : part
+        ).join('/') : path
+        img.src = encodedPath
+      })
+    }
+    
+    const encodePath = (path: string): string => {
+      if (path.includes(' ')) {
+        return path.split('/').map(part => 
+          part.includes(' ') ? encodeURIComponent(part) : part
+        ).join('/')
+      }
+      return path
+    }
+    
+    const findImage = async () => {
+      for (const path of possiblePaths) {
+        const exists = await testImage(path)
+        if (exists) {
+          // Use encoded path for display
+          setImageSrc(encodePath(path))
+          return
+        }
+      }
+      setImageSrc(null) // No image found
+    }
+    
+    findImage()
+  }, [])
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-4 sm:px-6 relative overflow-hidden dark:bg-gray-900 bg-white">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 bg-gradient-to-br from-blue-100/30 via-purple-100/30 to-pink-100/30"></div>
-      <div className="absolute inset-0 dark:bg-gradient-to-tr dark:from-transparent dark:via-blue-500/10 dark:to-purple-500/10 bg-gradient-to-tr from-transparent via-blue-200/20 to-purple-200/20"></div>
+    <section 
+      id="home" 
+      className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-4 sm:px-6 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${encodeURI('/images/pic 1.jpg')})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/30 dark:bg-black/50 z-[1]"></div>
+      
+      {/* Gradient Background Overlays */}
+      <div className="absolute inset-0 z-[2] dark:bg-gradient-to-br dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 bg-gradient-to-br from-blue-100/20 via-purple-100/20 to-pink-100/20"></div>
+      <div className="absolute inset-0 z-[2] dark:bg-gradient-to-tr dark:from-transparent dark:via-blue-500/5 dark:to-purple-500/5 bg-gradient-to-tr from-transparent via-blue-200/10 to-purple-200/10"></div>
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)]"
+        className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.2),transparent_50%)]"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0.2, 0.4, 0.2],
         }}
         transition={{
           duration: 8,
@@ -22,10 +90,10 @@ export default function Hero() {
         }}
       />
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(219,39,119,0.3),transparent_50%)]"
+        className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_70%_80%,rgba(219,39,119,0.2),transparent_50%)]"
         animate={{
           scale: [1.2, 1, 1.2],
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0.2, 0.4, 0.2],
         }}
         transition={{
           duration: 10,
@@ -34,12 +102,52 @@ export default function Hero() {
         }}
       />
       
-      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <div className="max-w-4xl mx-auto text-center relative z-[10]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
+          {/* Profile Picture */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, type: "spring", stiffness: 100 }}
+            className="mb-6 sm:mb-8 flex justify-center"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-red-500/50 dark:border-red-400/60 shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/50"
+            >
+              {imageSrc ? (
+                imageSrc.includes(' ') ? (
+                  // Use regular img tag for filenames with spaces
+                  <img
+                    src={imageSrc}
+                    alt="Johnny-Lee Treavajo"
+                    className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover' }}
+                  />
+                ) : (
+                  <Image
+                    src={imageSrc}
+                    alt="Johnny-Lee Treavajo"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                )
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-red-500 via-white to-black flex items-center justify-center text-white text-4xl sm:text-5xl md:text-6xl font-bold">
+                  JL
+                </div>
+              )}
+              {/* Decorative ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-white/30 dark:border-gray-700/30"></div>
+            </motion.div>
+          </motion.div>
+          
           <motion.h1
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 px-2 dark:text-white text-gray-900"
             initial={{ opacity: 0, y: 30 }}

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ExternalLink, Github, ShoppingCart, CheckSquare, Cloud } from 'lucide-react'
+import Image from 'next/image'
 
 const projects = [
   {
@@ -10,7 +11,9 @@ const projects = [
     tech: ['Next.js', 'TypeScript', 'Stripe', 'MongoDB', 'Tailwind CSS'],
     github: 'https://github.com/johnnylee20000',
     demo: 'https://example.com',
-    image: 'bg-gradient-to-br from-blue-500 via-purple-600 to-pink-600',
+    // Use imagePath for actual images, or image for gradient backgrounds
+    imagePath: '/images/project1.jpg', // Optional: Add your project image here
+    image: 'bg-gradient-to-br from-blue-500 via-purple-600 to-pink-600', // Fallback gradient
     icon: ShoppingCart,
     features: ['Payment Integration', 'Admin Dashboard', 'User Authentication', 'Order Tracking'],
   },
@@ -20,7 +23,8 @@ const projects = [
     tech: ['React', 'Node.js', 'Socket.io', 'PostgreSQL', 'Express'],
     github: 'https://github.com/johnnylee20000',
     demo: 'https://example.com',
-    image: 'bg-gradient-to-br from-green-500 via-teal-600 to-cyan-600',
+    imagePath: '/images/project2.jpg', // Optional: Add your project image here
+    image: 'bg-gradient-to-br from-green-500 via-teal-600 to-cyan-600', // Fallback gradient
     icon: CheckSquare,
     features: ['Real-time Updates', 'Team Collaboration', 'Drag & Drop', 'Project Organization'],
   },
@@ -30,7 +34,8 @@ const projects = [
     tech: ['Next.js', 'Tailwind CSS', 'Weather API', 'Chart.js', 'TypeScript'],
     github: 'https://github.com/johnnylee20000',
     demo: 'https://example.com',
-    image: 'bg-gradient-to-br from-yellow-500 via-orange-600 to-red-600',
+    imagePath: '/images/project3.jpg', // Optional: Add your project image here
+    image: 'bg-gradient-to-br from-yellow-500 via-orange-600 to-red-600', // Fallback gradient
     icon: Cloud,
     features: ['7-Day Forecast', 'Interactive Maps', 'Location Search', 'Weather Alerts'],
   },
@@ -72,12 +77,22 @@ export default function Projects() {
               >
                 {/* Project Image/Header */}
                 <motion.div 
-                  className={`h-48 sm:h-56 ${project.image} relative overflow-hidden`}
+                  className={`h-48 sm:h-56 ${!project.imagePath ? project.image : ''} relative overflow-hidden`}
                   initial={{ scale: 1.1 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: index * 0.15 + 0.2 }}
                 >
+                  {/* Use actual image if imagePath is provided, otherwise use gradient */}
+                  {project.imagePath ? (
+                    <Image
+                      src={project.imagePath}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : null}
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.div

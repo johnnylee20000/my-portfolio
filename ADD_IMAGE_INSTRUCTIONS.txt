@@ -1,0 +1,35 @@
+HOW TO ADD YOUR IMAGE TO THE HERO SECTION
+==========================================
+
+STEP 1: Find your image file
+- Look for your "johnnylee red white and black" image file on your computer
+- It might be in Downloads, Pictures, or Desktop folder
+
+STEP 2: Copy the image file
+- Copy your image file (it can be .jpg, .png, or .jpeg)
+
+STEP 3: Paste it in the images folder
+- Navigate to: C:\Users\HOME\Documents\my-portfolio\public\images\
+- Paste your image file there
+
+STEP 4: Rename the file (choose ONE of these names):
+- johnnylee-red-white-black.jpg
+- johnnylee-red-white-black.png
+- johnnylee.jpg
+- johnnylee.png
+- red-white-black.jpg
+- red-white-black.png
+
+STEP 5: Refresh your browser
+- The image should appear automatically!
+
+IMPORTANT:
+- The file MUST be in the public/images/ folder
+- The filename must match one of the names above (case-sensitive)
+- Supported formats: .jpg, .jpeg, .png
+
+If you're still having issues:
+1. Make sure the file is actually an image file (not a text file)
+2. Check the file size (should be less than 5MB)
+3. Try renaming it to exactly: johnnylee-red-white-black.jpg
+
