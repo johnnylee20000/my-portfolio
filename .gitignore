@@ -73,3 +73,7 @@ Thumbs.db
 *.sln
 *.sw?
 
+# Sensitive files
+*.docx
+*~$*
+
