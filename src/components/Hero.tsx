@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import LetterGlitch from './LetterGlitch'
 
 export default function Hero() {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -122,20 +121,12 @@ export default function Hero() {
           >
             Hi, I&apos;m{' '}
             <motion.span
-              className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent block sm:inline relative"
+              className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent block sm:inline"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <span className="relative z-10">Johnny-Lee Treavajo</span>
-              <div className="absolute inset-0 opacity-30 -z-0" style={{ width: '100%', height: '100%', minHeight: '80px' }}>
-                <LetterGlitch
-                  glitchSpeed={50}
-                  centerVignette={true}
-                  outerVignette={false}
-                  smooth={true}
-                />
-              </div>
+              Johnny-Lee Treavajo
             </motion.span>
           </motion.h1>
           <motion.p
