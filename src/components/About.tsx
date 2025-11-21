@@ -111,7 +111,7 @@ export default function About() {
                   {item.title}
                 </h4>
                 <p className="text-sm sm:text-base dark:text-gray-300 text-gray-700">
-                  {item.title === 'Education' && 'Your Degree / Institution'}
+                  {item.title === 'Education' && 'Pitch-Rise'}
                   {item.title === 'Experience' && 'Your Experience Details'}
                   {item.title === 'Location' && 'Trinidad and Tobago'}
                 </p>
