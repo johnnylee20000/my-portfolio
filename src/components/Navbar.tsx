@@ -35,7 +35,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isExternal?: boolean) => {
+    if (isExternal) {
+      // For external links, just navigate normally
+      return
+    }
+    
     e.preventDefault()
     const targetId = href.replace('#', '')
     const element = document.getElementById(targetId)
@@ -61,6 +66,7 @@ export default function Navbar() {
     { name: 'Skills', href: '#skills', id: 'skills' },
     { name: 'Projects', href: '#projects', id: 'projects' },
     { name: 'Contact', href: '#contact', id: 'contact' },
+    { name: 'Shopping', href: '/shopping', id: 'shopping', isExternal: true },
   ]
 
   return (
@@ -87,7 +93,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                onClick={(e) => handleSmoothScroll(e, item.href)}
+                onClick={(e) => handleSmoothScroll(e, item.href, item.isExternal)}
                 className={`relative dark:text-gray-300 text-gray-700 dark:hover:text-white hover:text-gray-900 transition-colors duration-200 px-2 py-1 ${
                   activeSection === item.id
                     ? 'dark:text-white text-gray-900 font-semibold'
@@ -95,7 +101,7 @@ export default function Navbar() {
                 }`}
               >
                 {item.name}
-                {activeSection === item.id && (
+                {activeSection === item.id && !item.isExternal && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full"></span>
                 )}
               </a>
@@ -137,7 +143,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                onClick={(e) => handleSmoothScroll(e, item.href)}
+                onClick={(e) => handleSmoothScroll(e, item.href, item.isExternal)}
                 className={`block dark:text-gray-300 text-gray-700 dark:hover:text-white hover:text-gray-900 transition-colors px-2 py-2 rounded ${
                   activeSection === item.id
                     ? 'dark:text-white text-gray-900 font-semibold dark:bg-gray-800/50 bg-gray-100/50'
