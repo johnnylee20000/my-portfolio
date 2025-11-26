@@ -8,6 +8,23 @@ import { useState, useEffect } from 'react'
 export default function Hero() {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    const element = document.getElementById(targetId)
+    
+    if (element) {
+      const offset = 80 // Account for navbar height
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+  
   // Set profile picture to pic 1.jpg
   useEffect(() => {
     // Use pic 1.jpg as the profile picture
@@ -179,14 +196,16 @@ export default function Hero() {
 
           <motion.a
             href="#about"
+            onClick={(e) => handleSmoothScroll(e, '#about')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="inline-block"
+            className="inline-block cursor-pointer"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2 }}
+              whileHover={{ scale: 1.1 }}
             >
               <ArrowDown size={32} className="dark:text-gray-400 text-gray-600" />
             </motion.div>

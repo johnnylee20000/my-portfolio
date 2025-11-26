@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export default function About() {
+  const [logoError, setLogoError] = useState(false)
   return (
     <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 dark:bg-gray-900 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -28,6 +30,42 @@ export default function About() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col items-center md:items-start"
           >
+            {/* Trinidad and Tobago Police Service Logo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mb-6 w-full max-w-xs flex justify-center md:justify-start"
+            >
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-lg overflow-hidden shadow-2xl bg-white dark:bg-gray-800 p-4 flex items-center justify-center border-2 border-red-500/20 dark:border-red-400/30">
+                {!logoError ? (
+                  <Image
+                    src="/images/ttps-logo.png"
+                    alt="Trinidad and Tobago Police Service Logo"
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                    onError={() => setLogoError(true)}
+                    priority
+                  />
+                ) : (
+                  <div className="text-center p-4">
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">TTPS Logo</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Add logo image to<br />
+                      <code className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded mt-1 inline-block">
+                        /public/images/ttps-logo.png
+                      </code>
+                    </p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                      (or .jpg, .svg, .webp)
+                    </p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+            
             {/* About Image - Optional: Add your image to public/images/about.jpg */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
